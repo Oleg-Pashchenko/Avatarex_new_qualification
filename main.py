@@ -31,6 +31,8 @@ async def cmd_start(message: types.Message):
 
 @dp.message()
 async def conversation(message: types.Message):
+    if message.chat.id not in history.keys():
+        return cmd_start(message)
     try:
         messages = history[message.chat.id]
         if len(messages) > 0 and messages[-1]['content'] == qualification_finished_message:
