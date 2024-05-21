@@ -32,11 +32,11 @@ async def cmd_start(message: types.Message):
 @dp.message()
 async def conversation(message: types.Message):
     if message.chat.id not in history.keys():
-        return cmd_start(message)
+        return await cmd_start(message)
     try:
         messages = history[message.chat.id]
         if len(messages) > 0 and messages[-1]['content'] == qualification_finished_message:
-            if not is_user_need_more(messages):
+            if not await is_user_need_more(messages):
                 blocked_users.append(message.chat.id)
                 return await message.answer("Понял вас! Если захотите заново пообщаться напишите /start !")
 
