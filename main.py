@@ -37,6 +37,7 @@ async def conversation(message: types.Message):
         messages = history[message.chat.id]
         last_q = ''
         for m in messages[::-1]:
+
             if m['content'] != '/memory':
                 last_q = m['content']
                 break
