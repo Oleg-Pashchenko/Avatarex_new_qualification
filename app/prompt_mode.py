@@ -5,6 +5,7 @@ import asyncio
 import dotenv
 
 import settings
+from app.exceptions import JsonParseError
 
 dotenv.load_dotenv()
 
@@ -29,16 +30,20 @@ async def get_memory(messages: list[dict], attempt=1):
     memory_answer = await get_response(messages)
     memory_answer = memory_answer.replace('`', '').replace('json', '').replace("'", '"')
     try:
-        return json.loads(memory_answer)['user_memory']
+        data = json.loads(memory_answer)['user_memory']
+        messages.pop(-1)
+        return data
     except:
+        messages.pop(-1)
         if attempt > 3:
-            raise settings.JsonParseError()
+            raise JsonParseError()
         return await get_memory(messages[:-1], attempt + 1)
 
 
 async def reset(messages: list[dict]):
     messages.append({'role': 'user', 'content': '/reset'})
     await get_response(messages)
+    messages.pop(-1)
 
 
 async def get_classification_function():
