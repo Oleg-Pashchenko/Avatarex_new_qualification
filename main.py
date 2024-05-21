@@ -36,7 +36,9 @@ async def conversation(message: types.Message):
     try:
         messages = history[message.chat.id]
         if len(messages) > 0 and messages[-1]['content'] == qualification_finished_message:
-            if not await is_user_need_more(messages):
+            q = await is_user_need_more(messages)
+            print(q)
+            if not q:
                 blocked_users.append(message.chat.id)
                 return await message.answer("Понял вас! Если захотите заново пообщаться напишите /start !")
 
