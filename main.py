@@ -35,6 +35,9 @@ async def conversation(message: types.Message):
         return await cmd_start(message)
     try:
         messages = history[message.chat.id]
+        for m in messages:
+            print(m['content'])
+        print(qualification_finished_message)
         if len(messages) > 0 and messages[-1]['content'] == qualification_finished_message:
             print('yes')
             q = await is_user_need_more(messages)
