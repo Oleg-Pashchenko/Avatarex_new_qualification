@@ -36,9 +36,9 @@ async def conversation(message: types.Message):
     try:
         messages = history[message.chat.id]
         last_q = ''
-        for message in messages[::-1]:
-            if message['content'] != '/memory':
-                last_q = message['content']
+        for m in messages[::-1]:
+            if m['content'] != '/memory':
+                last_q = m['content']
                 break
         if len(messages) > 0 and last_q == qualification_finished_message:
             print('yes')
