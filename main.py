@@ -8,7 +8,7 @@ import settings
 from app.database_mode import get_db_answer
 
 from app.exceptions import UserMemoryNotFound, CrmFieldNotFound, JsonParseError
-from app.prompt_mode import get_response, get_memory, reset
+from app.prompt_mode import get_response, get_memory, reset, is_user_need_more
 from content import fields
 from settings import qualification_finished_message
 
@@ -33,6 +33,11 @@ async def cmd_start(message: types.Message):
 async def conversation(message: types.Message):
     try:
         messages = history[message.chat.id]
+        if len(messages) > 0 and messages[-1]['content'] == qualification_finished_message:
+            if not is_user_need_more(messages):
+                blocked_users.append(message.chat.id)
+                await message.answer("Понял вас! Если захотите заново пообщаться напишите /start !")
+
         messages.append({'role': 'user', 'content': message.text})
         gpt_answer = await get_response(messages)
         messages.append({"role": "assistant", "content": gpt_answer})
