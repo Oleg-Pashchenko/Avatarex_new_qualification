@@ -63,8 +63,12 @@ async def get_classification_function():
 
 async def is_user_need_more(messages):
     try:
-        messages = [messages[-2], messages[-1]]
-        messages.insert(0, [{'role': 'system', 'content': 'Хочет ли user найти что-то еще? Заполни is_user_need_more'}])
+
+        messages = [
+            {'role': 'system', 'content': 'Хочет ли user найти что-то еще? Заполни is_user_need_more'},
+            messages[-2],
+            messages[-1]
+        ]
         completion = await client.chat.completions.create(
             model='gpt-4o',
             messages=messages,
