@@ -40,7 +40,6 @@ async def conversation(message: types.Message):
         messages.append({"role": "assistant", "content": gpt_answer})
         if message.text == '/memory':
             return await message.answer(settings.memory_message)
-        history[message.chat.id] = [msg for msg in history[message.chat.id] if '/memory' not in msg['content']]
         history[message.chat.id] = messages
 
         memory_answer = await get_memory(messages)
@@ -52,7 +51,6 @@ async def conversation(message: types.Message):
             await reset(messages)
             await message.answer(db_answer)
             await message.answer(qualification_finished_message)
-            history[message.chat.id] = [msg for msg in history[message.chat.id] if '/memory' not in msg['content']]
             history[message.chat.id] = messages
         else:
             await message.answer(gpt_answer)
