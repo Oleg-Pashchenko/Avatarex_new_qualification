@@ -24,9 +24,9 @@ monitor_size_content = [FieldValue(id=idx, name=name) for idx, name in enumerate
 price_range_content = [FieldValue(id=idx, name=name) for idx, name in enumerate(price_range)]
 
 fields = [
-    Field(id=1, description="Какое количество мониторов?", name='Количество мониторов', content=monitors_content, type=FieldType.ENUM),
-    Field(id=2, description="Нужна ли функция отпечатка пальца?", name='Функция отпечатка пальца', content=fingerprint_content, type=FieldType.ENUM),
-    Field(id=3, description="Какой размер монитора в дюймах?", name='Размер монитора в дюймах', content=monitor_size_content, type=FieldType.ENUM),
-    Field(id=4, description="Какой диапозон цен?", name='Цена', content=price_range_content, type=FieldType.ENUM),
+    Field(id=1, description="Какое количество мониторов? (4, 5, 7)", name='Количество мониторов', content=monitors_content, type=FieldType.ENUM),
+    Field(id=2, description="Нужна ли функция отпечатка пальца? (Да, Нет)", name='Функция отпечатка пальца', content=fingerprint_content, type=FieldType.ENUM),
+    Field(id=3, description="Какой размер монитора в дюймах? (4.3, 7)", name='Размер монитора в дюймах', content=monitor_size_content, type=FieldType.ENUM),
+    Field(id=4, description="Какой диапозон цен? (до 500, до 1000, до 2000, более 2000)", name='Цена', content=price_range_content, type=FieldType.ENUM),
     Field(id=5, description="Какое количество семей?", name='Количество семей', content=[], type=FieldType.TEXT)
 ]
