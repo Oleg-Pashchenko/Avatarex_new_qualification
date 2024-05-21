@@ -35,8 +35,12 @@ async def conversation(message: types.Message):
         return await cmd_start(message)
     try:
         messages = history[message.chat.id]
-        print(messages[-1]['content'])
-        if len(messages) > 0 and messages[-1]['content'] == qualification_finished_message:
+        last_q = ''
+        for message in messages[::-1]:
+            if message['content'] != '/memory':
+                last_q = message['content']
+                break
+        if len(messages) > 0 and last_q == qualification_finished_message:
             print('yes')
             q = await is_user_need_more(messages)
             print(q)
