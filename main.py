@@ -36,7 +36,7 @@ async def conversation(message: types.Message):
         if len(messages) > 0 and messages[-1]['content'] == qualification_finished_message:
             if not is_user_need_more(messages):
                 blocked_users.append(message.chat.id)
-                await message.answer("Понял вас! Если захотите заново пообщаться напишите /start !")
+                return await message.answer("Понял вас! Если захотите заново пообщаться напишите /start !")
 
         messages.append({'role': 'user', 'content': message.text})
         gpt_answer = await get_response(messages)
